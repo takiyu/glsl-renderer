@@ -4,7 +4,7 @@ NOMAKEDIR= .git%
 OBJDIR = objs
 OPTION := -L/usr/local/lib \
 		  -lGLEW -lglfw3 -lGLU -lGL -lX11 -lXrandr -lXi -lXxf86vm \
-		  -lpthread -lXcursor -lXinerama
+		  -lpthread -lXcursor -lXinerama -ldl
 
 
 GCC = g++

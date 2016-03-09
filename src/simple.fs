@@ -189,8 +189,7 @@ vec3 sampleDiffuse(const vec3 light_dir, const vec3 look_dir, const vec3 normal,
 		}
 	}
 
-	return L;
-
+	return clamp(L, 0, 1);
 }
 
 vec3 render(const Ray ray) {
@@ -250,6 +249,7 @@ vec3 render(const Ray ray) {
 		L = direct_color + L*sampleDiffuse(rays[i+1].dir, rays[i].dir,
 		                                   results[i].normal, results[i].tri_idx,
 		                                   results[i].texcoord);
+		L = clamp(L, 0, 1);
 	}
 
 	return L;
