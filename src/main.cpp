@@ -13,10 +13,6 @@
 
 
 #include "tinyobjloader/tiny_obj_loader.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
-#define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include "stb/stb_image_resize.h"
 
 #include "fps_counter.h"
 #include "glsl_classes.h"
@@ -71,44 +67,6 @@ void convToVecs(vector<T>& dst_tex, int width, int height,
 		}
 	}
 }
-/* PNG Loader */
-template<typename T> 
-bool loadPNG_withResize(vector<T>& dst_tex, int dst_size,
-                        const string& filename){
-
-	int src_width, src_height, src_channel;
-	unsigned char* raw_tex = stbi_load(filename.c_str(), &src_width,
-	                                   &src_height, &src_channel, 4);
-	if(!raw_tex) {
-		return false;
-	}
-
-	// raw_tex -> src_tex
-	float* src_tex = new float[src_width * src_height * src_channel];
-	for(int y = 0; y < src_width; y++) {
-		for(int x = 0; x < src_height; x++) {
-			for(int c = 0; c < src_channel; c++) {
-				int idx = (y * src_width + x) * src_channel + c;
-				src_tex[idx] = float(raw_tex[idx]) / 255.f;
-			}
-		}
-	}
-
-	// resize
-	float* resized_tex = new float[dst_size * dst_size * 4];
-	stbir_resize_float(src_tex, src_width, src_height, 0,
-	                   resized_tex, dst_size, dst_size, 0, 4);
-
-	// rgba -> rgb
-	convToVecs(dst_tex, dst_size, dst_size, resized_tex, 4, true);
-
-	delete [] raw_tex;
-	delete [] src_tex;
-	delete [] resized_tex;
-
-	return true;
-}
-/* Obj Loader */
 bool loadObjFile(const string& filename, vector<vec3>& triangle_buff,
                  vector<vec3>& normal_buff, vector<vec2>& texcoord_buf,
                  vector<int>& mat_idx_buff, vector<vec3>& material_buff){
