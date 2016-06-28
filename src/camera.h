@@ -5,11 +5,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+const static float HALF_PIE = 3.1415f * 0.5f;
+const static float SCREEN_DIST = 1.0f;
+
 class Camera {
 public:
-	const static float HALF_PIE = 3.1415f * 0.5f;
-	const static float SCREEN_DIST = 1.0f;
-
 	Camera();
 	Camera(const glm::vec3& from);
 	glm::vec3 getOrg(){ return this->from; }

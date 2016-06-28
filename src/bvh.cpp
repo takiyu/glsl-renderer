@@ -73,7 +73,7 @@ int Node::build(vector<Triangle*>& tris_p, int node_idx, int depth, int max_dept
 	//Search best position to devide
 	vector<Triangle*> best_right, best_left;
 	float total_surface = surface(this->bbox_min_point, this->bbox_max_point);
-	float best_cost = BVH::TRI_TIME * tris_p.size();// *surface(tris_p)/surface(tris_p)
+	float best_cost = TRI_TIME * tris_p.size();// *surface(tris_p)/surface(tris_p)
 	for(int axis = 0; axis < 3; axis++){
 		// Sort center coordinates
 		sortTrianglesCenter(tris_p, axis);
@@ -82,8 +82,8 @@ int Node::build(vector<Triangle*>& tris_p, int node_idx, int depth, int max_dept
 			vector<Triangle*> left(tris_p.begin(), tris_p.begin() + idx);
 			vector<Triangle*> right(tris_p.begin() + idx, tris_p.end());
 			// Calc SAH
-			float cost = 2 * BVH::AABB_TIME +
-				(surface(left)*left.size() + surface(right)*right.size()) * BVH::TRI_TIME / total_surface;
+			float cost = 2 * AABB_TIME +
+				(surface(left)*left.size() + surface(right)*right.size()) * TRI_TIME / total_surface;
 
 			// Update
 			if(cost <= best_cost){
@@ -155,8 +155,6 @@ void Node::getMissIdxInfo(std::vector<int>& miss_idx_array, Node *next_right){
 }
 
 /* BVH */
-BVH::BVH(){
-}
 BVH::~BVH(){
 	root.walkAndDelete();
 }

@@ -38,12 +38,12 @@ private:
 	std::vector<Triangle*> tris_p;
 };
 
+//SAH constant time value
+const static float AABB_TIME = 3.0f, TRI_TIME = 1.0f;
+
 class BVH {
 public:
-	//SAH constant time value
-	const static float AABB_TIME = 3.0f, TRI_TIME = 1.0f;
-
-	BVH();
+	BVH() {}
 	~BVH();
 	void build(const std::vector<glm::vec3>& tri_vertices);
 	// Get built tree info
