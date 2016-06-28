@@ -1,9 +1,11 @@
 # glsl-renderer #
 
 ### Testing Environment ###
+* Arch Linux, Intel HD Graphics 4000
 * Ubuntu 14.04, Intel HD Graphics 4000
 
 ### Build and Run ###
+If you failed to make, please edit `premake5.lua`.
 ```
 premake5 gmake
 cd build
