@@ -31,6 +31,7 @@ public:
 	void bindUniform(GLuint program_id, const std::string& var_name);
 	void setBuffer(const GLvoid* data);
 	void setResizedBuffer(int width, int height, const GLvoid* data);
+	void copyPixels(int width, int height);
 private:
 	GLuint texture;
 	int texture_idx;

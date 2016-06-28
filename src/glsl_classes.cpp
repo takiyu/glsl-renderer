@@ -143,3 +143,7 @@ void TextureRect::setResizedBuffer(int width, int height, const GLvoid* data){
 	this->active();
 	glTexImage2D(GL_TEXTURE_RECTANGLE, 0, format, width, height, 0, format, type, data);
 }
+void TextureRect::copyPixels(int width, int height) {
+    this->active();
+    glCopyTexImage2D(GL_TEXTURE_RECTANGLE, 0, internalformat, 0, 0, width, height, 0);
+}

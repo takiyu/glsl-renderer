@@ -16,7 +16,6 @@
 
 #include "fps_counter.h"
 #include "glsl_classes.h"
-#include "accumulator.h"
 #include "camera.h"
 #include "bvh.h"
 
@@ -27,7 +26,7 @@ using namespace std;
 Camera camera;
 // Accumulator accumulator;
 int accum_frame = 0;
-vector<vec3> accum_pixel_buff;
+vector<vec3> prev_pixel_buff;
 
 const string VS_FILE = "./simple.vs";
 const string FS_FILE = "./simple.fs";
@@ -243,7 +242,7 @@ void reshapeFunc(GLFWwindow *window, int width, int height){
 	WIDTH = width;
 	HEIGHT = height;
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-	accum_pixel_buff.resize(WIDTH * HEIGHT);
+	prev_pixel_buff.resize(WIDTH * HEIGHT);
 	accum_frame = 0;
 }
 void keyboardFunc(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -452,16 +451,8 @@ int main(int argc, char const* argv[]){
 	while(glfwWindowShouldClose(window) == GL_FALSE) {
 		// Accumulator
 		if(accum_frame == 0){
-// 			accumulator.setScreenSize(WIDTH, HEIGHT);
 		} else {
-			glReadPixels(0, 0, WIDTH, HEIGHT, GL_RGB, GL_FLOAT, &accum_pixel_buff[0]);
-// 			for(int x = 0; x < WIDTH; x++){ for(int y = 0; y < HEIGHT; y++){
-// 				accumulator.update(x, y, accum_pixel_buff[y*WIDTH+x], 1);
-// 			} }
-// 			for(int x = 0; x < WIDTH; x++){ for(int y = 0; y < HEIGHT; y++){
-// 				accum_pixel_buff[y*WIDTH+x] = accumulator.get(x, y);
-// 			} }
-			accum_pixel_tex.setResizedBuffer(WIDTH, HEIGHT, &accum_pixel_buff[0]);
+			accum_pixel_tex.copyPixels(WIDTH, HEIGHT);
 		}
 
 		// FPS
@@ -471,7 +462,6 @@ int main(int argc, char const* argv[]){
 		vec3 dir_base, x_vec, y_vec;
 		vec3 camera_org = camera.getOrg();
 		camera.getScreenInf(WIDTH, HEIGHT, dir_base, x_vec, y_vec);
-
 
 		// ===== Buffers =====
 		glEnableVertexAttribArray(0);
