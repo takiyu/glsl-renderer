@@ -24,12 +24,11 @@ using namespace glm;
 using namespace std;
 
 Camera camera;
-// Accumulator accumulator;
 int accum_frame = 0;
 vector<vec3> prev_pixel_buff;
 
-const string VS_FILE = "./simple.vs";
-const string FS_FILE = "./simple.fs";
+const string VS_FILE = "../src/simple.vs";
+const string FS_FILE = "../src/simple.fs";
 
 string OBJ_FILE = "../data/CornellBox-Sphere.obj"; // default
 const int VSYNC_INTERVAL = 0;
