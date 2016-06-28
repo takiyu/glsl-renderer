@@ -22,11 +22,11 @@ workspace "GlslRenderWorkspace"
     linkoptions { '-framework OpenGL' }
   configuration { "linux", "gmake" }
     -- for Arch Linux
-    links { "GLEW", "glfw", "GLU", "GL" }
+--     links { "GLEW", "glfw", "GLU", "GL" }
     -- for Other linux
---     links { "GLEW", "glfw3", "GLU", "GL" }
---     links { "X11", "Xrandr", "Xi", "Xxf86vm", "Xcursor", "Xinerama" }
-    links { "pthread" }
+    links { "GLEW", "glfw3", "GLU", "GL" }
+    links { "X11", "Xrandr", "Xi", "Xxf86vm", "Xcursor", "Xinerama" }
+    links { "pthread", "dl" }
 
   -- Configuration
   configuration "debug"
